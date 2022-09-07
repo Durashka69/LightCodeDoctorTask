@@ -45,9 +45,9 @@ class NurseSerializer(serializers.ModelSerializer):
             'id', 'user', 'job_title', 'doctor', 'doctor_name'
         )
 
-        extra_kwargs = {
-            'doctor': {'write_only': True}
-        }
+        # extra_kwargs = {
+        #     'doctor': {'write_only': True}
+        # }
 
 class DoctorSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
