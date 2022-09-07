@@ -16,17 +16,21 @@ def add_doctor_to_nurse(sender, instance, created, **kwargs):
 
     print(f'\n\n\n\n\n\n\n\n{instance.id} is instance.id \n\n\n\n\n\n ')
 
-    if created:
+    try:
+        if created:
 
-        free_nurses = Nurse.objects.filter(doctor=None) #Takes all nurses which doesn't have a doctor
-        nurse = free_nurses.first()
+            free_nurses = Nurse.objects.filter(doctor=None) #Takes all nurses which doesn't have a doctor
+            nurse = free_nurses.first()
 
-        if nurse.user.id == instance.user.id: #checks if doctor is not a nurse (because doctors also can be nurses)
-            nurse_choice = choice(            #so i decided that doctor can't be his own nurse lol
-                except_id(nurse.id, len(free_nurses))
-            )
-            nurse = free_nurses[nurse_choice]
+            if nurse.user.id == instance.user.id: #checks if doctor is not a nurse (because doctors also can be nurses)
+                nurse_choice = choice(            #so i decided that doctor can't be his own nurse lol
+                    except_id(nurse.id, len(free_nurses))
+                )
+                nurse = free_nurses[nurse_choice]
 
-        nurse.doctor = instance
-        nurse.save()
-        print('free_nurses added to created doctor!')
+            nurse.doctor = instance
+            nurse.save()
+            print('free_nurses added to created doctor!')
+
+    except AttributeError:
+        return
