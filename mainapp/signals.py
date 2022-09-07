@@ -11,9 +11,9 @@ def add_doctor_to_nurse(sender, instance, created, **kwargs):
 
     if created:
 
-        nurse = Nurse.objects.filter(
+        Nurse.objects.filter(
             pk=choice(
-                range(1,Nurse.objects.count()+1)
+                range(1,Nurse.objects.count()+1) #Assign random nurse to a created doctor
             )
         ).update(doctor=instance.id)
         print('Nurse added to created doctor!')
