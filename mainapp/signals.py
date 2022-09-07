@@ -14,8 +14,6 @@ def except_id(num, end, start = 1):   #this function gives us list of nums excep
 @receiver(post_save, sender=Doctor)
 def add_doctor_to_nurse(sender, instance, created, **kwargs):
 
-    print(f'\n\n\n\n\n\n\n\n{instance.id} is instance.id \n\n\n\n\n\n ')
-
     try:
         if created:
 
@@ -30,7 +28,7 @@ def add_doctor_to_nurse(sender, instance, created, **kwargs):
 
             nurse.doctor = instance
             nurse.save()
-            print('free_nurses added to created doctor!')
+            print('free nurse added to created doctor!')
 
     except AttributeError:
         return
